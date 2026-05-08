@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MACHUGI: POKEMON QUIZ 30</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+        :root { --primary: #333; --bg: #fff; }
+        body { margin: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: 'Pretendard', sans-serif; }
+        header { font-family: 'Black Han Sans', sans-serif; font-size: 2.5rem; color: var(--primary); margin-bottom: 5px; }
+        
+        .game-info { font-weight: bold; margin-bottom: 15px; color: #555; font-size: 1.1rem; display: flex; gap: 20px; }
+        .game-box { text-align: center; width: 90%; max-width: 450px; }
+        
+        .img-container {
+            width: 250px; height: 250px; margin: 0 auto 20px;
+            display: flex; align-items: center; justify-content: center;
+            background: #fdfdfd; border-radius: 30px; border: 4px solid #eee; position: relative;
+        }
+        #poke-img { max-width: 85%; max-height: 85%; filter: brightness(0); transition: 0.3s; }
+        #poke-img.reveal { filter: brightness(1); }
+
+        .hint-container { background: #f8f9fa; padding: 12px; border-radius: 15px; margin-bottom: 20px; border: 2px dashed #ccc; min-height: 50px; }
+        .hint-text { font-size: 0.9rem; color: #666; font-weight: bold; }
+        .type-badge { display: inline-block; padding: 3px 10px; border-radius: 15px; color: white; font-size: 0.75rem; font-weight: bold; margin: 0 2px; }
+
+        input { width: 100%; padding: 18px; font-size: 1.2rem; border: 3px solid var(--primary); border-radius: 20px; text-align: center; outline: none; box-sizing: border-box; box-shadow: 6px 6px 0px var(--primary); }
+        #msg { margin: 20px 0; font-weight: bold; font-size: 1.3rem; height: 35px; }
+
+        /* 결과 화면 스타일 */
+        #result-screen { display: none; }
+        .btn-restart { padding: 15px 40px; background: var(--primary); color: white; border: none; border-radius: 50px; cursor: pointer; font-size: 1.1rem; font-weight: bold; }
+
+        /* 타입 색상 */
+        .type-normal { background: #A8A878; } .type-fire { background: #F08030; } .type-water { background: #6890F0; } .type-grass { background: #78C850; }
+        .type-electric { background: #F8D030; } .type-ice { background: #98D8D8; } .type-fighting { background: #C03028; } .type-poison { background: #A040A0; }
+        .type-ground { background: #E0C068; } .type-flying { background: #A890F0; } .type-psychic { background: #F85888; } .type-bug { background: #A8B820; }
+        .type-rock { background: #B8A038; } .type-ghost { background: #705898; } .type-dragon { background: #7038F8; } .type-dark { background: #705848; }
+        .type-steel { background: #B8B8D0; } .type-fairy { background: #EE99AC; }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-screen" class="game-box">
+        <header>MACHUGI 30</header>
+        <div class="game-info">
+            <span>남은 문제: <span id="q-count">30</span></span>
+            <span>현재 점수: <span id="score">0</span></span>
+        </div>
+
+        <div class="img-container">
+            <img id="poke-img" src="" alt="pokemon">
+        </div>
+
+        <div class="hint-container">
+            <div id="hint-gen" class="hint-text">타이핑하면 힌트 공개!</div>
+            <div id="hint-type"></div>
+        </div>
+        
+        <input type="text" id="input" placeholder="정답을 입력하세요" autocomplete="off">
+        <div id="msg"></div>
+    </div>
+
+    <div id="result-screen" class="game-box">
+        <header>게임 종료!</header>
+        <h1 id="final-score" style="font-size: 4rem; margin: 20px 0;">0</h1>
+        <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px;">30문제 중 맞힌 개수입니다.</p>
+        <button class="btn-restart" onclick="location.reload()">다시 도전하기</button>
+    </div>
+
+    <script>
+        let ans = "";
+        let currentTypes = [];
+        let currentGen = "";
+        let score = 0;
+        let qCount = 30;
+        const typeKo = { normal:'노멀', fire:'불꽃', water:'물', grass:'풀', electric:'전기', ice:'얼음', fighting:'격투', poison:'독', ground:'땅', flying:'비행', psychic:'에스퍼', bug:'벌레', rock:'바위', ghost:'고스트', dragon:'드래곤', dark:'악', steel:'강철', fairy:'페어리' };
+
+        function getGen(id) {
+            if (id <= 151) return "1세대"; if (id <= 251) return "2세대"; if (id <= 386) return "3세대"; if (id <= 493) return "4세대"; if (id <= 649) return "5세대"; if (id <= 721) return "6세대"; if (id <= 809) return "7세대"; if (id <= 905) return "8세대"; return "9세대";
+        }
+
+        async function nextQuestion() {
+            if (qCount <= 0) {
+                showResult();
+                return;
+            }
+
+            document.getElementById('input').value = "";
+            document.getElementById('input').disabled = false;
+            document.getElementById('msg').innerText = "";
+            document.getElementById('poke-img').classList.remove('reveal');
+            document.getElementById('hint-gen').innerText = "타이핑하면 힌트 공개!";
+            document.getElementById('hint-type').innerHTML = "";
+            
+            const id = Math.floor(Math.random() * 1025) + 1;
+            currentGen = getGen(id);
+            
+            try {
+                const resB = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+                const dataB = await resB.json();
+                currentTypes = dataB.types.map(t => t.type.name);
+                
+                const resS = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+                const dataS = await resS.json();
+                ans = dataS.names.find(n => n.language.name === 'ko').name;
+                
+                document.getElementById('poke-img').src = dataB.sprites.other['official-artwork'].front_default;
+                document.getElementById('input').focus();
+            } catch (e) { nextQuestion(); }
+        }
+
+        function check() {
+            const user = document.getElementById('input').value.trim();
+            document.getElementById('input').disabled = true;
+            qCount--;
+            document.getElementById('q-count').innerText = qCount;
+
+            if (user === ans) {
+                score++;
+                document.getElementById('score').innerText = score;
+                document.getElementById('msg').innerText = "정답! 👍";
+                document.getElementById('msg').style.color = "#2ecc71";
+            } else {
+                document.getElementById('msg').innerText = `오답! (정답: ${ans})`;
+                document.getElementById('msg').style.color = "#e74c3c";
+            }
+
+            document.getElementById('poke-img').classList.add('reveal');
+            
+            // 1초 뒤 자동으로 다음 문제
+            setTimeout(nextQuestion, 1200);
+        }
+
+        function showResult() {
+            document.getElementById('quiz-screen').style.display = "none";
+            document.getElementById('result-screen').style.display = "block";
+            document.getElementById('final-score').innerText = `${score} / 30`;
+        }
+
+        document.getElementById('input').addEventListener('input', (e) => {
+            if (e.target.value.length > 0) {
+                document.getElementById('hint-gen').innerText = `💡 힌트: ${currentGen}`;
+                if (document.getElementById('hint-type').innerHTML === "") {
+                    currentTypes.forEach(t => {
+                        const b = document.createElement('span');
+                        b.className = `type-badge type-${t}`;
+                        b.innerText = typeKo[t] || t;
+                        document.getElementById('hint-type').appendChild(b);
+                    });
+                }
+            }
+        });
+
+        document.getElementById('input').onkeypress = (e) => { if(e.key === 'Enter') check(); };
+        nextQuestion();
+    </script>
+</body>
+</html>
