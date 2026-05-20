@@ -8,262 +8,96 @@
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --bg: #f5f0e8;
-  --card: #fff;
-  --text: #1a1a1a;
-  --muted: #666;
-  --border: #e0d8cc;
-  --primary: #2a2a2a;
-  --accent: #e53935;
-  --green: #2ecc71;
-  --red: #e74c3c;
-  --yellow: #f1c40f;
-  --p1: #3a7bd5;
-  --p2: #e53935;
-  --shadow: 5px 5px 0 #2a2a2a;
-  --radius: 16px;
+  --bg: #f5f0e8; --card: #fff; --text: #1a1a1a; --muted: #666;
+  --border: #e0d8cc; --primary: #2a2a2a; --accent: #e53935;
+  --green: #2ecc71; --red: #e74c3c; --yellow: #f1c40f;
+  --p1: #3a7bd5; --p2: #e53935; --shadow: 5px 5px 0 #2a2a2a; --radius: 16px;
 }
-
 body {
-  background: var(--bg);
-  font-family: 'Noto Sans KR', sans-serif;
-  color: var(--text);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 16px 40px;
+  background: var(--bg); font-family: 'Noto Sans KR', sans-serif;
+  color: var(--text); min-height: 100vh; display: flex;
+  flex-direction: column; align-items: center; padding: 20px 16px 40px;
   background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(0,0,0,0.03) 39px, rgba(0,0,0,0.03) 40px),
                     repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(0,0,0,0.03) 39px, rgba(0,0,0,0.03) 40px);
 }
-
-.site-header {
-  font-family: 'Black Han Sans', sans-serif;
-  font-size: clamp(2rem, 7vw, 3rem);
-  letter-spacing: 2px;
-  color: var(--primary);
-  text-shadow: 3px 3px 0 var(--accent);
-  margin-bottom: 4px;
-  text-align: center;
-}
-.site-sub {
-  font-size: 0.75rem;
-  color: var(--muted);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 28px;
-  text-align: center;
-}
-
+.site-header { font-family: 'Black Han Sans', sans-serif; font-size: clamp(2rem, 7vw, 3rem); letter-spacing: 2px; color: var(--primary); text-shadow: 3px 3px 0 var(--accent); margin-bottom: 4px; text-align: center; }
+.site-sub { font-size: 0.75rem; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 28px; text-align: center; }
 .screen { display: none; width: 100%; max-width: 500px; animation: fadeIn 0.25s ease; }
 .screen.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-
-.card {
-  background: var(--card);
-  border: 2.5px solid var(--primary);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 24px 20px;
-  margin-bottom: 16px;
-}
-
+.card { background: var(--card); border: 2.5px solid var(--primary); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px 20px; margin-bottom: 16px; }
 .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 10px 0 20px; }
-.mode-btn {
-  background: var(--card);
-  border: 2.5px solid var(--primary);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 20px 12px;
-  cursor: pointer;
-  text-align: center;
-  transition: transform 0.1s, box-shadow 0.1s;
-  font-family: 'Noto Sans KR', sans-serif;
-}
+.mode-btn { background: var(--card); border: 2.5px solid var(--primary); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 12px; cursor: pointer; text-align: center; transition: transform 0.1s, box-shadow 0.1s; font-family: 'Noto Sans KR', sans-serif; }
 .mode-btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--primary); }
 .mode-btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--primary); }
 .mode-icon { font-size: 2.5rem; margin-bottom: 8px; }
 .mode-title { font-family: 'Black Han Sans', sans-serif; font-size: 1.1rem; color: var(--primary); }
 .mode-desc { font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.4; }
-
 .player-setup { margin: 12px 0; }
 .player-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
 .player-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
-.p1-dot { background: var(--p1); }
-.p2-dot { background: var(--p2); }
-.setup-input {
-  flex: 1; padding: 10px 14px; border: 2px solid var(--border);
-  border-radius: 10px; font-size: 0.9rem; font-family: inherit;
-  background: var(--bg); outline: none;
-  transition: border-color 0.2s;
-}
+.p1-dot { background: var(--p1); } .p2-dot { background: var(--p2); }
+.setup-input { flex: 1; padding: 10px 14px; border: 2px solid var(--border); border-radius: 10px; font-size: 0.9rem; font-family: inherit; background: var(--bg); outline: none; transition: border-color 0.2s; }
 .setup-input:focus { border-color: var(--primary); }
-
-.btn {
-  display: block; width: 100%; padding: 14px;
-  background: var(--primary); color: #fff;
-  border: 2.5px solid var(--primary); border-radius: 50px;
-  box-shadow: var(--shadow); cursor: pointer;
-  font-size: 1rem; font-family: 'Black Han Sans', sans-serif;
-  letter-spacing: 1px; transition: transform 0.1s, box-shadow 0.1s;
-  text-align: center;
-}
+.btn { display: block; width: 100%; padding: 14px; background: var(--primary); color: #fff; border: 2.5px solid var(--primary); border-radius: 50px; box-shadow: var(--shadow); cursor: pointer; font-size: 1rem; font-family: 'Black Han Sans', sans-serif; letter-spacing: 1px; transition: transform 0.1s, box-shadow 0.1s; text-align: center; }
 .btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 #555; }
 .btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 #555; }
-.btn-ghost {
-  background: transparent; color: var(--primary);
-  margin-top: 10px; box-shadow: 5px 5px 0 var(--border);
-}
+.btn-ghost { background: transparent; color: var(--primary); margin-top: 10px; box-shadow: 5px 5px 0 var(--border); }
 .btn-ghost:hover { box-shadow: 7px 7px 0 var(--border); }
 .btn-sm { padding: 10px; font-size: 0.85rem; }
-
-.hud {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 14px;
-}
-.hud-badge {
-  background: var(--primary); color: #fff;
-  padding: 5px 14px; border-radius: 20px;
-  font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
-}
+.hud { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.hud-badge { background: var(--primary); color: #fff; padding: 5px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; }
 .q-counter { font-size: 0.82rem; color: var(--muted); font-weight: 700; }
-
-.scoreboard {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;
-}
-.score-card {
-  border: 2.5px solid var(--border); border-radius: 12px; padding: 12px;
-  text-align: center; transition: border-color 0.2s, box-shadow 0.2s;
-}
+.scoreboard { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.score-card { border: 2.5px solid var(--border); border-radius: 12px; padding: 12px; text-align: center; transition: border-color 0.2s, box-shadow 0.2s; }
 .score-card.active-turn { box-shadow: 4px 4px 0 var(--primary); border-color: var(--primary); }
 .score-card .s-name { font-size: 0.8rem; color: var(--muted); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .score-card .s-score { font-family: 'Black Han Sans', sans-serif; font-size: 2rem; }
-.p1-score .s-score { color: var(--p1); }
-.p2-score .s-score { color: var(--p2); }
-.turn-label {
-  font-size: 0.7rem; font-weight: 700; padding: 2px 8px;
-  border-radius: 10px; display: inline-block; margin-top: 4px;
-}
+.p1-score .s-score { color: var(--p1); } .p2-score .s-score { color: var(--p2); }
+.turn-label { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-top: 4px; }
 .p1-score .turn-label { background: #dce8f5; color: #1a5aaa; }
 .p2-score .turn-label { background: #fde8e8; color: #b92222; }
-
-.img-wrap {
-  width: 210px; height: 210px; margin: 0 auto 16px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--bg); border: 2.5px solid var(--border);
-  border-radius: 24px; position: relative; overflow: hidden;
-}
-#poke-img {
-  max-width: 82%; max-height: 82%;
-  filter: brightness(0) contrast(1);
-  transition: filter 0.4s;
-}
-#poke-img.reveal { filter: brightness(1) contrast(1); }
-.img-loader {
-  position: absolute; font-size: 0.75rem; color: var(--muted);
-  display: none;
-}
+.img-wrap { width: 210px; height: 210px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; background: var(--bg); border: 2.5px solid var(--border); border-radius: 24px; position: relative; overflow: hidden; }
+#s-poke-img, #m-poke-img { max-width: 82%; max-height: 82%; filter: brightness(0) contrast(1); transition: filter 0.4s; }
+#s-poke-img.reveal, #m-poke-img.reveal { filter: brightness(1) contrast(1); }
+.img-loader { position: absolute; font-size: 0.75rem; color: var(--muted); display: none; }
 .img-loader.show { display: block; }
-
-.hint-box {
-  background: var(--bg); border: 2px dashed var(--border);
-  border-radius: 12px; padding: 10px 14px; margin-bottom: 14px;
-  min-height: 44px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
-}
+.hint-box { background: var(--bg); border: 2px dashed var(--border); border-radius: 12px; padding: 10px 14px; margin-bottom: 14px; min-height: 44px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .hint-placeholder { font-size: 0.82rem; color: var(--muted); }
 .hint-gen { font-size: 0.82rem; font-weight: 700; color: var(--primary); }
-.type-badge {
-  display: inline-block; padding: 3px 10px; border-radius: 15px;
-  color: #fff; font-size: 0.72rem; font-weight: 700;
-}
+.type-badge { display: inline-block; padding: 3px 10px; border-radius: 15px; color: #fff; font-size: 0.72rem; font-weight: 700; }
 .type-normal{background:#A8A878}.type-fire{background:#F08030}.type-water{background:#6890F0}
 .type-grass{background:#78C850}.type-electric{background:#d4a800;color:#000}.type-ice{background:#98D8D8;color:#444}
 .type-fighting{background:#C03028}.type-poison{background:#A040A0}.type-ground{background:#E0C068;color:#444}
 .type-flying{background:#A890F0}.type-psychic{background:#F85888}.type-bug{background:#A8B820}
 .type-rock{background:#B8A038}.type-ghost{background:#705898}.type-dragon{background:#7038F8}
 .type-dark{background:#705848}.type-steel{background:#8a8aaa}.type-fairy{background:#EE99AC;color:#555}
-
-.answer-input {
-  width: 100%; padding: 16px 20px; font-size: 1.15rem;
-  border: 2.5px solid var(--primary); border-radius: 50px;
-  box-shadow: var(--shadow); text-align: center; outline: none;
-  font-family: 'Noto Sans KR', sans-serif;
-  background: var(--card); transition: border-color 0.2s;
-  margin-bottom: 12px;
-}
+.answer-input { width: 100%; padding: 16px 20px; font-size: 1.15rem; border: 2.5px solid var(--primary); border-radius: 50px; box-shadow: var(--shadow); text-align: center; outline: none; font-family: 'Noto Sans KR', sans-serif; background: var(--card); transition: border-color 0.2s; margin-bottom: 12px; }
 .answer-input:focus { border-color: var(--accent); }
 .answer-input:disabled { opacity: 0.5; background: var(--bg); }
-
-.msg {
-  text-align: center; font-size: 1.1rem; font-weight: 700;
-  height: 32px; line-height: 32px;
-}
-.msg.correct { color: var(--green); }
-.msg.wrong { color: var(--red); }
-
-.turn-announce {
-  text-align: center; padding: 16px; border-radius: var(--radius);
-  border: 2.5px solid var(--primary); box-shadow: var(--shadow);
-  margin-bottom: 14px; display: none;
-}
+.msg { text-align: center; font-size: 1.1rem; font-weight: 700; height: 32px; line-height: 32px; }
+.msg.correct { color: var(--green); } .msg.wrong { color: var(--red); }
+.turn-announce { text-align: center; padding: 16px; border-radius: var(--radius); border: 2.5px solid var(--primary); box-shadow: var(--shadow); margin-bottom: 14px; display: none; }
 .turn-announce.show { display: block; }
 .turn-name { font-family: 'Black Han Sans', sans-serif; font-size: 1.6rem; }
 .turn-sub { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
-
-.result-header {
-  font-family: 'Black Han Sans', sans-serif; font-size: 1.8rem;
-  text-align: center; margin-bottom: 20px;
-}
+.result-header { font-family: 'Black Han Sans', sans-serif; font-size: 1.8rem; text-align: center; margin-bottom: 20px; }
 .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-.result-card {
-  border: 2.5px solid var(--border); border-radius: 12px; padding: 16px;
-  text-align: center;
-}
-.result-card.winner {
-  border-color: var(--primary); box-shadow: var(--shadow);
-  background: #fffce8;
-}
+.result-card { border: 2.5px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; }
+.result-card.winner { border-color: var(--primary); box-shadow: var(--shadow); background: #fffce8; }
 .result-card .rc-name { font-size: 0.82rem; color: var(--muted); margin-bottom: 4px; }
-.result-card .rc-score {
-  font-family: 'Black Han Sans', sans-serif; font-size: 2.8rem;
-}
+.result-card .rc-score { font-family: 'Black Han Sans', sans-serif; font-size: 2.8rem; }
 .result-card.winner .rc-score { color: var(--accent); }
-.winner-banner {
-  text-align: center; font-size: 1.1rem; font-weight: 700;
-  color: var(--accent); margin-bottom: 20px;
-  padding: 10px; background: #fde8e8; border-radius: 10px;
-}
-
-.contact-bar {
-  margin-top: 20px; text-align: center;
-  font-size: 0.75rem; color: var(--muted);
-}
-.contact-link {
-  color: var(--primary); font-weight: 700; text-decoration: none;
-  border-bottom: 1.5px solid var(--border);
-  transition: border-color 0.2s;
-}
+.winner-banner { text-align: center; font-size: 1.1rem; font-weight: 700; color: var(--accent); margin-bottom: 20px; padding: 10px; background: #fde8e8; border-radius: 10px; }
+.contact-bar { margin-top: 20px; text-align: center; font-size: 0.75rem; color: var(--muted); }
+.contact-link { color: var(--primary); font-weight: 700; text-decoration: none; border-bottom: 1.5px solid var(--border); transition: border-color 0.2s; }
 .contact-link:hover { border-color: var(--primary); }
-
-.progress-wrap {
-  height: 6px; background: var(--border); border-radius: 10px;
-  overflow: hidden; margin-bottom: 16px;
-}
-.progress-fill {
-  height: 100%; background: var(--primary);
-  border-radius: 10px; transition: width 0.4s ease;
-}
-
-.single-score-big {
-  text-align: center; margin-bottom: 20px;
-}
+.progress-wrap { height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+.progress-fill { height: 100%; background: var(--primary); border-radius: 10px; transition: width 0.4s ease; }
+.single-score-big { text-align: center; margin-bottom: 20px; }
 .single-score-big .ss-label { font-size: 0.85rem; color: var(--muted); }
-.single-score-big .ss-num {
-  font-family: 'Black Han Sans', sans-serif; font-size: 4rem;
-  color: var(--accent); line-height: 1;
-}
+.single-score-big .ss-num { font-family: 'Black Han Sans', sans-serif; font-size: 4rem; color: var(--accent); line-height: 1; }
 .single-score-big .ss-sub { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
 </style>
 </head>
@@ -272,7 +106,6 @@ body {
 <div class="site-header">MACHUGI 30</div>
 <div class="site-sub">POKEMON QUIZ GAME</div>
 
-<!-- MODE SELECT -->
 <div class="screen active" id="screen-mode">
   <div class="card">
     <div style="text-align:center;font-size:0.85rem;color:var(--muted);margin-bottom:8px;">게임 모드를 선택하세요</div>
@@ -289,12 +122,9 @@ body {
       </button>
     </div>
   </div>
-  <div class="contact-bar">
-    오류나 문의사항은 <a class="contact-link" href="mailto:bagdaegyu347@gmail.com">bagdaegyu347@gmail.com</a>으로 연락주세요
-  </div>
+  <div class="contact-bar">오류나 문의사항은 <a class="contact-link" href="mailto:bagdaegyu347@gmail.com">bagdaegyu347@gmail.com</a>으로 연락주세요</div>
 </div>
 
-<!-- MULTI SETUP -->
 <div class="screen" id="screen-setup">
   <div class="card">
     <div style="font-family:'Black Han Sans',sans-serif;font-size:1.3rem;margin-bottom:16px;text-align:center;">플레이어 이름 입력</div>
@@ -314,7 +144,6 @@ body {
   </div>
 </div>
 
-<!-- QUIZ (SINGLE) -->
 <div class="screen" id="screen-single">
   <div class="hud">
     <span class="hud-badge">SINGLE PLAY</span>
@@ -328,21 +157,18 @@ body {
   </div>
   <div class="img-wrap">
     <span class="img-loader" id="s-loader">로딩 중...</span>
-    <img id="s-poke-img" src="" alt="pokemon" style="max-width:82%;max-height:82%;filter:brightness(0);transition:filter 0.4s;">
+    <img id="s-poke-img" src="" alt="pokemon">
   </div>
-  <div class="hint-box" id="s-hint-box">
+  <div class="hint-box">
     <span class="hint-placeholder" id="s-hint-ph">타이핑하면 힌트 공개!</span>
     <span class="hint-gen" id="s-hint-gen" style="display:none"></span>
     <span id="s-hint-types"></span>
   </div>
   <input class="answer-input" type="text" id="s-input" placeholder="정답을 입력하세요" autocomplete="off">
   <div class="msg" id="s-msg"></div>
-  <div class="contact-bar" style="margin-top:10px;">
-    문의: <a class="contact-link" href="mailto:bagdaegyu347@gmail.com">bagdaegyu347@gmail.com</a>
-  </div>
+  <div class="contact-bar" style="margin-top:10px;">문의: <a class="contact-link" href="mailto:bagdaegyu347@gmail.com">bagdaegyu347@gmail.com</a></div>
 </div>
 
-<!-- QUIZ (MULTI) -->
 <div class="screen" id="screen-multi">
   <div class="hud">
     <span class="hud-badge">MULTI PLAY</span>
@@ -369,9 +195,9 @@ body {
   <div id="m-quiz-area" style="display:none;">
     <div class="img-wrap">
       <span class="img-loader" id="m-loader">로딩 중...</span>
-      <img id="m-poke-img" src="" alt="pokemon" style="max-width:82%;max-height:82%;filter:brightness(0);transition:filter 0.4s;">
+      <img id="m-poke-img" src="" alt="pokemon">
     </div>
-    <div class="hint-box" id="m-hint-box">
+    <div class="hint-box">
       <span class="hint-placeholder" id="m-hint-ph">타이핑하면 힌트 공개!</span>
       <span class="hint-gen" id="m-hint-gen" style="display:none"></span>
       <span id="m-hint-types"></span>
@@ -379,12 +205,9 @@ body {
     <input class="answer-input" type="text" id="m-input" placeholder="정답을 입력하세요" autocomplete="off">
     <div class="msg" id="m-msg"></div>
   </div>
-  <div class="contact-bar" style="margin-top:10px;">
-    문의: <a class="contact-link" href="mailto:bagdaegyu347@gmail.com">bagdaegyu347@gmail.com</a>
-  </div>
+  <div class="contact-bar" style="margin-top:10px;">문의: <a class="contact-link" href="mailto:bagdaegyu347@gmail.com">bagdaegyu347@gmail.com</a></div>
 </div>
 
-<!-- RESULT (SINGLE) -->
 <div class="screen" id="screen-result-single">
   <div class="card">
     <div class="result-header">🎉 결과 발표!</div>
@@ -396,12 +219,9 @@ body {
     <div id="sr-comment" style="text-align:center;margin-bottom:20px;font-size:1rem;color:var(--muted);"></div>
     <button class="btn" onclick="location.reload()">다시 도전하기</button>
   </div>
-  <div class="contact-bar">
-    오류나 문의사항은 <a class="contact-link" href="mailto:bagdaegyu347@gmail.com">bagdaegyu347@gmail.com</a>으로 연락주세요
-  </div>
+  <div class="contact-bar">오류나 문의사항은 <a class="contact-link" href="mailto:bagdaegyu347@gmail.com">bagdaegyu347@gmail.com</a>으로 연락주세요</div>
 </div>
 
-<!-- RESULT (MULTI) -->
 <div class="screen" id="screen-result-multi">
   <div class="card">
     <div class="result-header">🏆 최종 결과!</div>
@@ -420,290 +240,178 @@ body {
     <div class="winner-banner" id="mr-winner-text"></div>
     <button class="btn" onclick="location.reload()">다시 도전하기</button>
   </div>
-  <div class="contact-bar">
-    오류나 문의사항은 <a class="contact-link" href="mailto:bagdaegyu347@gmail.com">bagdaegyu347@gmail.com</a>으로 연락주세요
-  </div>
+  <div class="contact-bar">오류나 문의사항은 <a class="contact-link" href="mailto:bagdaegyu347@gmail.com">bagdaegyu347@gmail.com</a>으로 연락주세요</div>
 </div>
 
 <script>
 const typeKo = {
-  normal:'노멀', fire:'불꽃', water:'물', grass:'풀', electric:'전기',
-  ice:'얼음', fighting:'격투', poison:'독', ground:'땅', flying:'비행',
-  psychic:'에스퍼', bug:'벌레', rock:'바위', ghost:'고스트', dragon:'드래곤',
-  dark:'악', steel:'강철', fairy:'페어리'
+  normal:'노멀',fire:'불꽃',water:'물',grass:'풀',electric:'전기',
+  ice:'얼음',fighting:'격투',poison:'독',ground:'땅',flying:'비행',
+  psychic:'에스퍼',bug:'벌레',rock:'바위',ghost:'고스트',dragon:'드래곤',
+  dark:'악',steel:'강철',fairy:'페어리'
 };
-
-function getGen(id) {
-  if (id<=151) return "1세대"; if (id<=251) return "2세대"; if (id<=386) return "3세대";
-  if (id<=493) return "4세대"; if (id<=649) return "5세대"; if (id<=721) return "6세대";
-  if (id<=809) return "7세대"; if (id<=905) return "8세대"; return "9세대";
+function getGen(id){
+  if(id<=151)return"1세대";if(id<=251)return"2세대";if(id<=386)return"3세대";
+  if(id<=493)return"4세대";if(id<=649)return"5세대";if(id<=721)return"6세대";
+  if(id<=809)return"7세대";if(id<=905)return"8세대";return"9세대";
+}
+function normalize(s){return s.trim().toLowerCase().replace(/\s+/g,'');}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function buildTypeHints(types,container){
+  container.innerHTML='';
+  types.forEach(t=>{const b=document.createElement('span');b.className=`type-badge type-${t}`;b.textContent=typeKo[t]||t;container.appendChild(b);});
 }
 
-function normalize(str) {
-  return str.trim().toLowerCase().replace(/\s+/g, '');
+/* SINGLE */
+let sAns='',sTypes=[],sGen='',sScore=0,sQLeft=30;
+function startSingle(){
+  sAns='';sTypes=[];sGen='';sScore=0;sQLeft=30;
+  document.getElementById('s-score-disp').textContent='0';
+  document.getElementById('s-qcount').textContent='30';
+  document.getElementById('s-progress').style.width='0%';
+  showScreen('screen-single');sFetch();
 }
-
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-function buildTypeHints(types, container) {
-  container.innerHTML = '';
-  types.forEach(t => {
-    const b = document.createElement('span');
-    b.className = `type-badge type-${t}`;
-    b.textContent = typeKo[t] || t;
-    container.appendChild(b);
-  });
-}
-
-/* ── SINGLE ── */
-let sAns = '', sTypes = [], sGen = '', sScore = 0, sQLeft = 30;
-
-function startSingle() {
-  sAns=''; sTypes=[]; sGen=''; sScore=0; sQLeft=30;
-  document.getElementById('s-score-disp').textContent = '0';
-  document.getElementById('s-qcount').textContent = '30';
-  document.getElementById('s-progress').style.width = '0%';
-  showScreen('screen-single');
-  sFetch();
-}
-
-async function sFetch() {
-  const imgEl = document.getElementById('s-poke-img');
-  const loader = document.getElementById('s-loader');
-  const input = document.getElementById('s-input');
-  imgEl.classList.remove('reveal');
-  imgEl.src = '';
-  input.value = '';
-  input.disabled = false;
-  document.getElementById('s-msg').textContent = '';
-  document.getElementById('s-msg').className = 'msg';
-  document.getElementById('s-hint-ph').style.display = 'inline';
-  document.getElementById('s-hint-gen').style.display = 'none';
-  document.getElementById('s-hint-types').innerHTML = '';
+async function sFetch(){
+  const img=document.getElementById('s-poke-img'),loader=document.getElementById('s-loader'),input=document.getElementById('s-input');
+  img.classList.remove('reveal');img.src='';input.value='';input.disabled=false;
+  document.getElementById('s-msg').textContent='';document.getElementById('s-msg').className='msg';
+  document.getElementById('s-hint-ph').style.display='inline';
+  document.getElementById('s-hint-gen').style.display='none';
+  document.getElementById('s-hint-types').innerHTML='';
   loader.classList.add('show');
-  const id = Math.floor(Math.random()*1025)+1;
-  sGen = getGen(id);
-  try {
-    const [rB, rS] = await Promise.all([
-      fetch(`https://pokeapi.co/api/v2/pokemon/${id}`),
-      fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
-    ]);
-    const dB = await rB.json();
-    const dS = await rS.json();
-    sTypes = dB.types.map(t=>t.type.name);
-    sAns = dS.names.find(n=>n.language.name==='ko').name;
-    imgEl.src = dB.sprites.other['official-artwork'].front_default;
-    imgEl.onload = () => loader.classList.remove('show');
+  const id=Math.floor(Math.random()*1025)+1;sGen=getGen(id);
+  try{
+    const[rB,rS]=await Promise.all([fetch(`https://pokeapi.co/api/v2/pokemon/${id}`),fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)]);
+    const dB=await rB.json(),dS=await rS.json();
+    sTypes=dB.types.map(t=>t.type.name);
+    sAns=dS.names.find(n=>n.language.name==='ko').name;
+    img.src=dB.sprites.other['official-artwork'].front_default;
+    img.onload=()=>loader.classList.remove('show');
     input.focus();
-  } catch(e) { sFetch(); }
+  }catch(e){sFetch();}
 }
-
-document.getElementById('s-input').addEventListener('input', e => {
-  if (e.target.value.length > 0) {
-    document.getElementById('s-hint-ph').style.display = 'none';
-    const genEl = document.getElementById('s-hint-gen');
-    genEl.style.display = 'inline';
-    genEl.textContent = `💡 ${sGen}`;
-    const typesEl = document.getElementById('s-hint-types');
-    if (!typesEl.children.length) buildTypeHints(sTypes, typesEl);
-  } else {
-    document.getElementById('s-hint-ph').style.display = 'inline';
-    document.getElementById('s-hint-gen').style.display = 'none';
-    document.getElementById('s-hint-types').innerHTML = '';
+document.getElementById('s-input').addEventListener('input',e=>{
+  if(e.target.value.length>0){
+    document.getElementById('s-hint-ph').style.display='none';
+    const g=document.getElementById('s-hint-gen');g.style.display='inline';g.textContent=`💡 ${sGen}`;
+    const t=document.getElementById('s-hint-types');if(!t.children.length)buildTypeHints(sTypes,t);
+  }else{
+    document.getElementById('s-hint-ph').style.display='inline';
+    document.getElementById('s-hint-gen').style.display='none';
+    document.getElementById('s-hint-types').innerHTML='';
   }
 });
-
-document.getElementById('s-input').addEventListener('keypress', e => {
-  if (e.key === 'Enter') sCheck();
-});
-
-function sCheck() {
-  const input = document.getElementById('s-input');
-  const user = input.value;
-  if (!user.trim()) return;
-  input.disabled = true;
-  const correct = normalize(user) === normalize(sAns);
-  sQLeft--;
-  if (correct) {
-    sScore++;
-    document.getElementById('s-score-disp').textContent = sScore;
-    document.getElementById('s-msg').textContent = '정답! 👍';
-    document.getElementById('s-msg').className = 'msg correct';
-  } else {
-    document.getElementById('s-msg').textContent = `오답! (정답: ${sAns})`;
-    document.getElementById('s-msg').className = 'msg wrong';
-  }
-  document.getElementById('s-qcount').textContent = sQLeft;
-  document.getElementById('s-progress').style.width = `${((30-sQLeft)/30)*100}%`;
+document.getElementById('s-input').addEventListener('keypress',e=>{if(e.key==='Enter')sCheck();});
+function sCheck(){
+  const input=document.getElementById('s-input'),user=input.value;
+  if(!user.trim())return;input.disabled=true;
+  const ok=normalize(user)===normalize(sAns);sQLeft--;
+  if(ok){sScore++;document.getElementById('s-score-disp').textContent=sScore;document.getElementById('s-msg').textContent='정답! 👍';document.getElementById('s-msg').className='msg correct';}
+  else{document.getElementById('s-msg').textContent=`오답! (정답: ${sAns})`;document.getElementById('s-msg').className='msg wrong';}
+  document.getElementById('s-qcount').textContent=sQLeft;
+  document.getElementById('s-progress').style.width=`${((30-sQLeft)/30)*100}%`;
   document.getElementById('s-poke-img').classList.add('reveal');
-  setTimeout(() => {
-    if (sQLeft <= 0) sResult();
-    else sFetch();
-  }, 1300);
+  setTimeout(()=>{if(sQLeft<=0)sResult();else sFetch();},1300);
 }
-
-function sResult() {
-  document.getElementById('sr-score').textContent = sScore;
-  const pct = sScore/30;
-  let comment = '';
-  if (pct===1) comment = '🏆 완벽한 포켓몬 마스터!';
-  else if (pct>=0.8) comment = '🌟 대단해요! 거의 다 맞혔네요!';
-  else if (pct>=0.5) comment = '😊 꽤 잘 했어요!';
-  else if (pct>=0.3) comment = '🤔 조금 더 연습해봐요!';
-  else comment = '😅 포켓몬을 더 공부해보세요!';
-  document.getElementById('sr-comment').textContent = comment;
+function sResult(){
+  document.getElementById('sr-score').textContent=sScore;
+  const p=sScore/30;
+  document.getElementById('sr-comment').textContent=p===1?'🏆 완벽한 포켓몬 마스터!':p>=0.8?'🌟 대단해요! 거의 다 맞혔네요!':p>=0.5?'😊 꽤 잘 했어요!':p>=0.3?'🤔 조금 더 연습해봐요!':'😅 포켓몬을 더 공부해보세요!';
   showScreen('screen-result-single');
 }
 
-/* ── MULTI ── */
-let p1Name='', p2Name='', p1Score=0, p2Score=0;
-let currentPlayer=1;
-let mAns='', mTypes=[], mGen='';
-let mQLeft=30, p1Done=0, p2Done=0;
-
-function showMultiSetup() {
-  showScreen('screen-setup');
+/* MULTI */
+let p1Name='',p2Name='',p1Score=0,p2Score=0,currentPlayer=1;
+let mAns='',mTypes=[],mGen='',mQLeft=30,p1Done=0,p2Done=0;
+function showMultiSetup(){showScreen('screen-setup');}
+function startMulti(){
+  p1Name=document.getElementById('p1-name').value.trim()||'플레이어 1';
+  p2Name=document.getElementById('p2-name').value.trim()||'플레이어 2';
+  p1Score=0;p2Score=0;currentPlayer=1;mQLeft=30;p1Done=0;p2Done=0;
+  document.getElementById('m-p1-name').textContent=p1Name;
+  document.getElementById('m-p2-name').textContent=p2Name;
+  document.getElementById('mr-p1-name').textContent=p1Name;
+  document.getElementById('mr-p2-name').textContent=p2Name;
+  document.getElementById('m-p1-score').textContent='0';
+  document.getElementById('m-p2-score').textContent='0';
+  document.getElementById('m-qcount').textContent='30';
+  document.getElementById('m-progress').style.width='0%';
+  showScreen('screen-multi');showTurnAnnounce();
 }
-
-function startMulti() {
-  p1Name = document.getElementById('p1-name').value.trim() || '플레이어 1';
-  p2Name = document.getElementById('p2-name').value.trim() || '플레이어 2';
-  p1Score=0; p2Score=0; currentPlayer=1;
-  mQLeft=30; p1Done=0; p2Done=0;
-  document.getElementById('m-p1-name').textContent = p1Name;
-  document.getElementById('m-p2-name').textContent = p2Name;
-  document.getElementById('mr-p1-name').textContent = p1Name;
-  document.getElementById('mr-p2-name').textContent = p2Name;
-  document.getElementById('m-p1-score').textContent = '0';
-  document.getElementById('m-p2-score').textContent = '0';
-  document.getElementById('m-qcount').textContent = '30';
-  document.getElementById('m-progress').style.width = '0%';
-  showScreen('screen-multi');
-  showTurnAnnounce();
-}
-
-function showTurnAnnounce() {
-  document.getElementById('m-turn-name-big').textContent = currentPlayer===1 ? p1Name : p2Name;
+function showTurnAnnounce(){
+  document.getElementById('m-turn-name-big').textContent=currentPlayer===1?p1Name:p2Name;
   document.getElementById('m-turn-announce').classList.add('show');
-  document.getElementById('m-quiz-area').style.display = 'none';
+  document.getElementById('m-quiz-area').style.display='none';
   updateScoreCards();
 }
-
-function updateScoreCards() {
-  const p1Card = document.getElementById('m-p1-card');
-  const p2Card = document.getElementById('m-p2-card');
-  const p1Lbl = document.getElementById('m-p1-label');
-  const p2Lbl = document.getElementById('m-p2-label');
-  if (currentPlayer===1) {
-    p1Card.classList.add('active-turn'); p2Card.classList.remove('active-turn');
-    p1Lbl.style.visibility='visible'; p2Lbl.style.visibility='hidden';
-  } else {
-    p2Card.classList.add('active-turn'); p1Card.classList.remove('active-turn');
-    p2Lbl.style.visibility='visible'; p1Lbl.style.visibility='hidden';
-  }
+function updateScoreCards(){
+  const c1=document.getElementById('m-p1-card'),c2=document.getElementById('m-p2-card');
+  const l1=document.getElementById('m-p1-label'),l2=document.getElementById('m-p2-label');
+  if(currentPlayer===1){c1.classList.add('active-turn');c2.classList.remove('active-turn');l1.style.visibility='visible';l2.style.visibility='hidden';}
+  else{c2.classList.add('active-turn');c1.classList.remove('active-turn');l2.style.visibility='visible';l1.style.visibility='hidden';}
 }
-
-function beginTurn() {
+function beginTurn(){
   document.getElementById('m-turn-announce').classList.remove('show');
-  document.getElementById('m-quiz-area').style.display = 'block';
+  document.getElementById('m-quiz-area').style.display='block';
   mFetch();
 }
-
-async function mFetch() {
-  const imgEl = document.getElementById('m-poke-img');
-  const loader = document.getElementById('m-loader');
-  const input = document.getElementById('m-input');
-  imgEl.classList.remove('reveal');
-  imgEl.src='';
-  input.value='';
-  input.disabled=false;
-  document.getElementById('m-msg').textContent='';
-  document.getElementById('m-msg').className='msg';
+async function mFetch(){
+  const img=document.getElementById('m-poke-img'),loader=document.getElementById('m-loader'),input=document.getElementById('m-input');
+  img.classList.remove('reveal');img.src='';input.value='';input.disabled=false;
+  document.getElementById('m-msg').textContent='';document.getElementById('m-msg').className='msg';
   document.getElementById('m-hint-ph').style.display='inline';
   document.getElementById('m-hint-gen').style.display='none';
   document.getElementById('m-hint-types').innerHTML='';
   loader.classList.add('show');
-  const id = Math.floor(Math.random()*1025)+1;
-  mGen = getGen(id);
-  try {
-    const [rB, rS] = await Promise.all([
-      fetch(`https://pokeapi.co/api/v2/pokemon/${id}`),
-      fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
-    ]);
-    const dB = await rB.json();
-    const dS = await rS.json();
-    mTypes = dB.types.map(t=>t.type.name);
-    mAns = dS.names.find(n=>n.language.name==='ko').name;
-    imgEl.src = dB.sprites.other['official-artwork'].front_default;
-    imgEl.onload = () => loader.classList.remove('show');
+  const id=Math.floor(Math.random()*1025)+1;mGen=getGen(id);
+  try{
+    const[rB,rS]=await Promise.all([fetch(`https://pokeapi.co/api/v2/pokemon/${id}`),fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)]);
+    const dB=await rB.json(),dS=await rS.json();
+    mTypes=dB.types.map(t=>t.type.name);
+    mAns=dS.names.find(n=>n.language.name==='ko').name;
+    img.src=dB.sprites.other['official-artwork'].front_default;
+    img.onload=()=>loader.classList.remove('show');
     input.focus();
-  } catch(e) { mFetch(); }
+  }catch(e){mFetch();}
 }
-
-document.getElementById('m-input').addEventListener('input', e => {
-  if (e.target.value.length > 0) {
+document.getElementById('m-input').addEventListener('input',e=>{
+  if(e.target.value.length>0){
     document.getElementById('m-hint-ph').style.display='none';
-    const genEl = document.getElementById('m-hint-gen');
-    genEl.style.display='inline';
-    genEl.textContent=`💡 ${mGen}`;
-    const typesEl = document.getElementById('m-hint-types');
-    if (!typesEl.children.length) buildTypeHints(mTypes, typesEl);
-  } else {
+    const g=document.getElementById('m-hint-gen');g.style.display='inline';g.textContent=`💡 ${mGen}`;
+    const t=document.getElementById('m-hint-types');if(!t.children.length)buildTypeHints(mTypes,t);
+  }else{
     document.getElementById('m-hint-ph').style.display='inline';
     document.getElementById('m-hint-gen').style.display='none';
     document.getElementById('m-hint-types').innerHTML='';
   }
 });
-
-document.getElementById('m-input').addEventListener('keypress', e => {
-  if (e.key==='Enter') mCheck();
-});
-
-function mCheck() {
-  const input = document.getElementById('m-input');
-  const user = input.value;
-  if (!user.trim()) return;
-  input.disabled=true;
-  const correct = normalize(user) === normalize(mAns);
-  if (correct) {
-    if (currentPlayer===1) { p1Score++; document.getElementById('m-p1-score').textContent=p1Score; }
-    else { p2Score++; document.getElementById('m-p2-score').textContent=p2Score; }
-    document.getElementById('m-msg').textContent='정답! 👍';
-    document.getElementById('m-msg').className='msg correct';
-  } else {
-    document.getElementById('m-msg').textContent=`오답! (정답: ${mAns})`;
-    document.getElementById('m-msg').className='msg wrong';
-  }
+document.getElementById('m-input').addEventListener('keypress',e=>{if(e.key==='Enter')mCheck();});
+function mCheck(){
+  const input=document.getElementById('m-input'),user=input.value;
+  if(!user.trim())return;input.disabled=true;
+  const ok=normalize(user)===normalize(mAns);
+  if(ok){if(currentPlayer===1){p1Score++;document.getElementById('m-p1-score').textContent=p1Score;}else{p2Score++;document.getElementById('m-p2-score').textContent=p2Score;}document.getElementById('m-msg').textContent='정답! 👍';document.getElementById('m-msg').className='msg correct';}
+  else{document.getElementById('m-msg').textContent=`오답! (정답: ${mAns})`;document.getElementById('m-msg').className='msg wrong';}
   document.getElementById('m-poke-img').classList.add('reveal');
-  if (currentPlayer===1) p1Done++; else p2Done++;
+  if(currentPlayer===1)p1Done++;else p2Done++;
   mQLeft--;
   document.getElementById('m-qcount').textContent=mQLeft;
   document.getElementById('m-progress').style.width=`${((30-mQLeft)/30)*100}%`;
-  setTimeout(() => {
-    if (mQLeft<=0) { mResult(); return; }
-    const shouldSwitch = (currentPlayer===1 && p1Done>=15) || (currentPlayer===2 && p2Done>=15);
-    if (shouldSwitch) {
-      currentPlayer = currentPlayer===1 ? 2 : 1;
-      showTurnAnnounce();
-    } else {
-      mFetch();
-    }
-  }, 1300);
+  setTimeout(()=>{
+    if(mQLeft<=0){mResult();return;}
+    const sw=(currentPlayer===1&&p1Done>=15)||(currentPlayer===2&&p2Done>=15);
+    if(sw){currentPlayer=currentPlayer===1?2:1;showTurnAnnounce();}else{mFetch();}
+  },1300);
 }
-
-function mResult() {
+function mResult(){
   document.getElementById('mr-p1-score').textContent=p1Score;
   document.getElementById('mr-p2-score').textContent=p2Score;
-  const p1Card = document.getElementById('mr-p1-card');
-  const p2Card = document.getElementById('mr-p2-card');
-  let winnerText = '';
-  if (p1Score > p2Score) { p1Card.classList.add('winner'); winnerText = `🎉 ${p1Name} 승리!`; }
-  else if (p2Score > p1Score) { p2Card.classList.add('winner'); winnerText = `🎉 ${p2Name} 승리!`; }
-  else { winnerText = '🤝 무승부!'; }
-  document.getElementById('mr-winner-text').textContent=winnerText;
+  const c1=document.getElementById('mr-p1-card'),c2=document.getElementById('mr-p2-card');
+  let w='';
+  if(p1Score>p2Score){c1.classList.add('winner');w=`🎉 ${p1Name} 승리!`;}
+  else if(p2Score>p1Score){c2.classList.add('winner');w=`🎉 ${p2Name} 승리!`;}
+  else{w='🤝 무승부!';}
+  document.getElementById('mr-winner-text').textContent=w;
   showScreen('screen-result-multi');
 }
 </script>
